@@ -4,6 +4,8 @@ import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
+import { checkLicense } from './license.js';
+checkLicense();   // exits immediately if license is missing / invalid / wrong machine
 import { db, getSetting, setSetting } from './db.js';
 import bcrypt from 'bcryptjs';
 import { customAlphabet } from 'nanoid';

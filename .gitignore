@@ -17,6 +17,9 @@ server/bin/
 *.log
 npm-debug.log*
 
+# License key (machine-specific — never commit)
+license.key
+
 # Environment / secrets
 .env
 .env.*
