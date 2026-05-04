@@ -115,13 +115,8 @@ Bookmark it or create a desktop shortcut.
 
 ## Updating the app
 
-When a new version is available, open Command Prompt in the autoshop folder and run:
-```bat
-git pull
-npm run install:all
-npm run build:client
-pm2 restart autoshop
-```
+When Basil sends an update, simply double-click **`update.bat`** in the autoshop folder.
+It will download, build, and restart everything automatically.
 
 ---
 
