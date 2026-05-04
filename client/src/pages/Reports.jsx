@@ -77,7 +77,7 @@ export default function Reports({ th, lang, worker }) {
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                 <div style={{ fontSize: '24px' }}>{tx.avatar}</div>
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: 700, color: tx.color, fontFamily: 'Syne' }}>{tx.name}</div>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: tx.color, letterSpacing: '-0.015em' }}>{tx.name}</div>
                 </div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginTop: '8px' }}>

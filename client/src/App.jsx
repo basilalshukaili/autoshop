@@ -46,20 +46,27 @@ class ErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div style={{
-          padding: '48px 28px', textAlign: 'center', color: '#fff',
-          background: '#0F172A', borderRadius: 20, margin: '40px auto',
-          maxWidth: 560, border: '1px solid rgba(249,115,22,.25)',
+          padding: '52px 32px', textAlign: 'center', color: '#E2E8F0',
+          background: '#0F1424', borderRadius: 16, margin: '48px auto',
+          maxWidth: 560, border: '1px solid rgba(148,163,184,.14)',
           boxShadow: '0 20px 50px rgba(0,0,0,.5)',
         }}>
-          <div style={{ fontSize: 44, marginBottom: 14 }}>⚠️</div>
-          <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 10, color: '#F97316', letterSpacing: '-0.01em' }}>Something went wrong on this page</div>
-          <div style={{ fontSize: 12.5, color: '#94A3B8', marginBottom: 22, wordBreak: 'break-word', lineHeight: 1.6 }}>
+          <div style={{
+            width: 56, height: 56, margin: '0 auto 18px',
+            borderRadius: '50%', background: 'rgba(239,68,68,.12)',
+            border: '1px solid rgba(239,68,68,.30)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 24,
+          }}>!</div>
+          <div style={{ fontSize: 17, fontWeight: 700, marginBottom: 10, color: '#F1F5F9', letterSpacing: '-0.018em' }}>Something went wrong</div>
+          <div style={{ fontSize: 12.5, color: '#94A3B8', marginBottom: 26, wordBreak: 'break-word', lineHeight: 1.6 }}>
             {this.state.error?.message || 'Unknown error'}
           </div>
           <button onClick={() => { this.setState({ hasError: false, error: null }); window.location.href = '/dashboard'; }} style={{
-            padding: '11px 22px', background: '#F97316', color: '#fff',
-            border: 'none', borderRadius: 10, cursor: 'pointer', fontWeight: 700,
-            boxShadow: '0 8px 22px rgba(249,115,22,.4)',
+            padding: '10px 22px', background: '#6366F1', color: '#fff',
+            border: 'none', borderRadius: 8, cursor: 'pointer', fontWeight: 600,
+            fontSize: 12.5, letterSpacing: '.1px',
+            boxShadow: '0 4px 12px rgba(99,102,241,.30)',
           }}>← Back to Dashboard</button>
         </div>
       );
@@ -80,7 +87,7 @@ function WaStatus({ th, token }) {
     const id = setInterval(poll, 4000);
     return () => clearInterval(id);
   }, [token]);
-  const col = wa.state === 'ready' ? '#25D366' : wa.state === 'qr' ? '#F97316' : '#64748B';
+  const col = wa.state === 'ready' ? '#25D366' : wa.state === 'qr' ? '#6366F1' : '#64748B';
   const label = wa.state === 'ready' ? '●' : wa.state === 'qr' ? '⚡' : '○';
   const restart = async (clear) => {
     setBusy(true);
@@ -151,14 +158,14 @@ function WaStatus({ th, token }) {
                 </div>
                 <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
                   <button disabled={busy} onClick={() => restart(false)} style={{
-                    background: '#F97316', color: '#fff', border: 'none', padding: '9px 16px',
-                    borderRadius: 9, cursor: busy ? 'wait' : 'pointer', fontSize: 11.5, fontWeight: 700,
-                    boxShadow: '0 6px 16px rgba(249,115,22,.4)',
-                  }}>{busy ? '…' : '🔄 Reconnect'}</button>
+                    background: '#6366F1', color: '#fff', border: 'none', padding: '9px 16px',
+                    borderRadius: 8, cursor: busy ? 'wait' : 'pointer', fontSize: 11.5, fontWeight: 600,
+                    boxShadow: '0 4px 12px rgba(99,102,241,.30)',
+                  }}>{busy ? '…' : 'Reconnect'}</button>
                   <button disabled={busy} onClick={() => restart(true)} style={{
                     background: 'transparent', color: '#EF4444', border: '1px solid #EF444450', padding: '9px 16px',
-                    borderRadius: 9, cursor: busy ? 'wait' : 'pointer', fontSize: 11.5, fontWeight: 700,
-                  }}>{busy ? '…' : '🆕 New QR'}</button>
+                    borderRadius: 8, cursor: busy ? 'wait' : 'pointer', fontSize: 11.5, fontWeight: 600,
+                  }}>{busy ? '…' : 'New QR'}</button>
                 </div>
               </>
             )}
@@ -365,27 +372,29 @@ function Sidebar({ th, lang, worker, settings, isMobile, navOpen, onNavigate }) 
       top: 0, height: '100vh',
     }}>
       {/* Brand */}
-      <div style={{ padding: '20px 18px 16px', borderBottom: `1px solid ${th.navBdr}` }}>
+      <div style={{ padding: '22px 18px 18px', borderBottom: `1px solid ${th.navBdr}` }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{
-            width: 38, height: 38, borderRadius: 10,
+            width: 36, height: 36, borderRadius: 9,
             background: GRAD.brand,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 19,
-            boxShadow: '0 0 18px rgba(249,115,22,.45), inset 0 1px 0 rgba(255,255,255,.25)',
-          }}>🔧</div>
+            color: '#fff',
+            fontSize: 16, fontWeight: 800, letterSpacing: '-0.02em',
+            boxShadow: '0 4px 14px rgba(99,102,241,.35), inset 0 1px 0 rgba(255,255,255,.20)',
+            fontFamily: "'Inter', sans-serif",
+          }}>A</div>
           <div style={{ overflow: 'hidden' }}>
             <div style={{
-              fontSize: 13.5, fontWeight: 800, color: th.txt,
-              fontFamily: fd(lang), letterSpacing: '-0.01em',
+              fontSize: 13.5, fontWeight: 700, color: th.txt,
+              fontFamily: fd(lang), letterSpacing: '-0.018em',
               whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
             }}>
               {settings.shop_name || t('app_title', lang)}
             </div>
             <div style={{
-              fontSize: 9.5, color: th.muted, letterSpacing: '1.8px',
-              fontWeight: 600, marginTop: 2,
-            }}>v1.0 · OMAN</div>
+              fontSize: 9.5, color: th.muted, letterSpacing: '1.6px',
+              fontWeight: 600, marginTop: 3, textTransform: 'uppercase',
+            }}>Pro · v1.0</div>
           </div>
         </div>
       </div>
@@ -409,11 +418,10 @@ function Sidebar({ th, lang, worker, settings, isMobile, navOpen, onNavigate }) 
 
       <div style={{ padding: '12px 14px 16px', borderTop: `1px solid ${th.navBdr}` }}>
         <div style={{
-          fontSize: 10, fontWeight: 700, color: C.O,
-          background: `${C.O}14`, border: `1px solid ${C.O}30`,
-          borderRadius: 8, padding: '7px 10px', textAlign: 'center',
-          letterSpacing: '.4px', fontFamily: ff(lang),
-          boxShadow: `0 0 14px ${C.O}1A, inset 0 1px 0 ${C.O}22`,
+          fontSize: 9.5, fontWeight: 600, color: th.muted,
+          textAlign: 'center',
+          letterSpacing: '1.4px', textTransform: 'uppercase',
+          fontFamily: ff(lang),
         }}>
           {t('powered_by_basil', lang)}
         </div>
@@ -464,11 +472,12 @@ function Main({ th, lang, setLang, theme, setTheme, worker, settings, onLogout, 
         {/* Mobile brand */}
         {isMobile && (
           <div style={{
-            width: 32, height: 32, borderRadius: 9, flexShrink: 0,
-            background: GRAD.brand,
+            width: 32, height: 32, borderRadius: 8, flexShrink: 0,
+            background: GRAD.brand, color: '#fff',
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 16, boxShadow: '0 0 14px rgba(249,115,22,.4)',
-          }}>🔧</div>
+            fontSize: 14, fontWeight: 800, letterSpacing: '-0.02em',
+            boxShadow: '0 3px 10px rgba(99,102,241,.35)',
+          }}>A</div>
         )}
 
         {/* Search — full bar on desktop, icon button on mobile */}
@@ -508,22 +517,22 @@ function Main({ th, lang, setLang, theme, setTheme, worker, settings, onLogout, 
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
           <WaStatus th={th} token={localStorage.getItem('autoshop_token')} />
           <button onClick={() => setLang(x => x === 'en' ? 'ar' : 'en')} className="hide-tablet" style={{
-            background: `${C.B}15`, border: `1px solid ${C.B}30`, color: C.B,
-            padding: '7px 14px', borderRadius: 10, cursor: 'pointer', fontSize: 12, fontWeight: 700,
+            background: th.card, border: `1px solid ${th.border}`, color: th.txt,
+            padding: '7px 14px', borderRadius: 8, cursor: 'pointer', fontSize: 12, fontWeight: 600,
             fontFamily: ff(lang), transition: `all ${MOTION.fast}`,
           }}>{lang === 'en' ? 'العربية' : 'English'}</button>
           <button onClick={() => setLang(x => x === 'en' ? 'ar' : 'en')} aria-label="Language" className="show-mobile hide-mobile" style={{
             display: 'none',
-            background: `${C.B}15`, border: `1px solid ${C.B}30`, color: C.B,
-            width: 38, height: 38, borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 700,
+            background: th.card, border: `1px solid ${th.border}`, color: th.txt,
+            width: 38, height: 38, borderRadius: 8, cursor: 'pointer', fontSize: 12, fontWeight: 600,
             alignItems: 'center', justifyContent: 'center',
           }}>{lang === 'en' ? 'ع' : 'EN'}</button>
-          <button onClick={() => setTheme(x => x === 'dark' ? 'light' : 'dark')} style={{
-            background: `${C.GL}15`, border: `1px solid ${C.GL}30`, color: C.GL,
-            padding: '7px 12px', borderRadius: 10, cursor: 'pointer', fontSize: 14,
+          <button onClick={() => setTheme(x => x === 'dark' ? 'light' : 'dark')} aria-label="Theme" style={{
+            background: th.card, border: `1px solid ${th.border}`, color: th.sub,
+            padding: '7px 12px', borderRadius: 8, cursor: 'pointer', fontSize: 14,
             transition: `all ${MOTION.fast}`,
             minWidth: 38, height: 38, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          }}>{theme === 'dark' ? '☀️' : '🌙'}</button>
+          }}>{theme === 'dark' ? '☀' : '☾'}</button>
         </div>
 
         {/* Worker chip — name hides on mobile */}

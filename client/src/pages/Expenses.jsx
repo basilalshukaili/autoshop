@@ -39,7 +39,7 @@ export default function Expenses({ th, lang, worker }) {
         <div style={{ fontSize: '10px', color: th.sub, letterSpacing: '1.5px' }}>
           {lang === 'ar' ? 'إجمالي المصاريف' : 'TOTAL EXPENSES'}
         </div>
-        <div style={{ fontSize: '24px', fontWeight: 800, color: C.PK, fontFamily: 'Syne' }}>{money(total, lang)}</div>
+        <div style={{ fontSize: '26px', fontWeight: 700, color: th.txt, letterSpacing: '-0.028em', marginTop: 4 }}>{money(total, lang)}</div>
       </Card>
 
       {loading && <Spinner />}

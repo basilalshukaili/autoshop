@@ -137,11 +137,21 @@ export function Header({ th, lang, title, count, action }) {
   return (
     <div style={{
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      marginBottom: '18px', flexWrap: 'wrap', gap: '12px',
+      marginBottom: '20px', flexWrap: 'wrap', gap: '12px',
     }}>
       <div>
-        <h1 style={{ fontSize: '22px', fontWeight: 800, color: th.txt, margin: 0, fontFamily: fd(lang) }}>
-          {title} {count !== undefined && <span style={{ fontSize: '13px', color: th.sub, fontWeight: 400 }}>({count})</span>}
+        <h1 style={{
+          fontSize: '24px', fontWeight: 700, color: th.txt, margin: 0,
+          fontFamily: fd(lang), letterSpacing: '-0.028em', lineHeight: 1.1,
+        }}>
+          {title}
+          {count !== undefined && (
+            <span style={{
+              fontSize: '13px', color: th.muted, fontWeight: 500,
+              marginInlineStart: 8, letterSpacing: '0',
+              fontFamily: "'JetBrains Mono', monospace",
+            }}>{count}</span>
+          )}
         </h1>
       </div>
       {action}

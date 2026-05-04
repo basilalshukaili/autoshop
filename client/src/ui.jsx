@@ -3,24 +3,24 @@ import { createPortal } from 'react-dom';
 import { C, GRAD, MOTION, fm } from './theme.js';
 import { t } from './i18n.js';
 
-// ───── Atoms ─────
+// ───── Atoms — refined: less glow, more precision ─────
 export const Dot = ({ color = C.O, size = 7, pulse }) => (
   <div style={{
     width: size, height: size, borderRadius: '50%', background: color, flexShrink: 0,
-    boxShadow: pulse ? `0 0 ${size * 2.2}px ${color}` : `0 0 ${size}px ${color}66`,
+    boxShadow: pulse ? `0 0 ${size * 1.6}px ${color}` : 'none',
     animation: pulse ? 'blink 2s ease infinite' : undefined,
   }} />
 );
 
 export const Tag = ({ c = C.O, children, size = 'sm' }) => (
   <span style={{
-    background: `${c}1A`,
-    border: `1px solid ${c}3D`,
+    background: `${c}14`,
+    border: `1px solid ${c}30`,
     color: c,
     padding: size === 'sm' ? '3px 9px' : '5px 12px',
-    borderRadius: 6,
+    borderRadius: 5,
     fontSize: size === 'sm' ? 10 : 11,
-    letterSpacing: '.6px',
+    letterSpacing: '.5px',
     fontFamily: fm,
     fontWeight: 600,
     whiteSpace: 'nowrap',
@@ -32,38 +32,54 @@ export const Tag = ({ c = C.O, children, size = 'sm' }) => (
 
 export const Pill = ({ c = C.O, children, glow }) => (
   <span style={{
-    background: `${c}1F`,
-    border: `1px solid ${c}45`,
+    background: `${c}18`,
+    border: `1px solid ${c}38`,
     color: c,
-    padding: '4px 11px',
+    padding: '3px 10px',
     borderRadius: 999,
-    fontSize: 11,
-    fontWeight: 700,
+    fontSize: 10.5,
+    fontWeight: 600,
+    letterSpacing: '.2px',
     whiteSpace: 'nowrap',
     display: 'inline-flex',
     alignItems: 'center',
     gap: 4,
-    boxShadow: glow ? `0 0 16px ${c}55` : 'none',
     lineHeight: 1.5,
   }}>{children}</span>
 );
 
-// ───── Btn — proper hover/active/loading states ─────
+// ───── Btn — refined: precise shadows, no glow ─────
 export const Btn = ({ c = C.O, variant = 'fill', children, style, loading, disabled, ...rest }) => {
   const [hover, setHover] = useState(false);
   const [pressed, setPressed] = useState(false);
   const isFill = variant === 'fill';
   const isOutline = variant === 'outline';
 
+  // Hover-darkened version of the brand color for fill buttons
+  const fillHover = isFill ? `${c}` : c;
+
   const base = {
-    fill:    { background: c, color: '#fff', border: `1px solid ${c}` },
-    ghost:   { background: hover ? `${c}24` : `${c}15`, color: c, border: `1px solid ${c}40` },
-    outline: { background: hover ? `${c}10` : 'transparent', color: c, border: `1px solid ${c}55` },
+    fill:    {
+      background: hover && !disabled ? `${c}DD` : c,
+      color: '#fff',
+      border: `1px solid ${c}`,
+    },
+    ghost:   {
+      background: hover ? `${c}1F` : `${c}12`,
+      color: c,
+      border: `1px solid ${c}30`,
+    },
+    outline: {
+      background: hover ? `${c}10` : 'transparent',
+      color: c,
+      border: `1px solid ${c}50`,
+    },
   }[variant];
 
+  // Precise drop-shadow on hover, no colored glow halo
   const hoverShadow = isFill && hover && !disabled
-    ? `0 8px 22px ${c}55, 0 2px 6px ${c}33`
-    : isOutline && hover ? `0 0 0 2px ${c}22` : 'none';
+    ? `0 4px 14px ${c}40, 0 2px 4px rgba(0,0,0,.10)`
+    : 'none';
 
   return (
     <button
@@ -77,8 +93,8 @@ export const Btn = ({ c = C.O, variant = 'fill', children, style, loading, disab
         padding: '8px 16px',
         borderRadius: 8,
         fontSize: 12,
-        fontWeight: 700,
-        letterSpacing: '.1px',
+        fontWeight: 600,
+        letterSpacing: '0',
         cursor: (disabled || loading) ? 'not-allowed' : 'pointer',
         transition: `all ${MOTION.fast}, transform 90ms cubic-bezier(.4,0,.2,1)`,
         transform: pressed && !disabled ? 'scale(.97)' : hover && !disabled ? 'translateY(-1px)' : 'none',
@@ -100,9 +116,10 @@ export const Btn = ({ c = C.O, variant = 'fill', children, style, loading, disab
   );
 };
 
-// ───── Card — with optional sheen + lift ─────
+// ───── Card — refined: neutral hover border, subtle lift ─────
 export const Card = ({ children, c = C.O, th, style, onClick, lift = false }) => {
   const [hover, setHover] = useState(false);
+  const isInteractive = lift || onClick;
   return (
     <div
       onClick={onClick}
@@ -111,14 +128,14 @@ export const Card = ({ children, c = C.O, th, style, onClick, lift = false }) =>
       style={{
         position: 'relative',
         background: th.surf,
-        backgroundImage: hover && (lift || onClick) ? GRAD.surface : 'none',
-        border: `1px solid ${hover && (lift || onClick) ? c + '40' : th.border}`,
+        backgroundImage: hover && isInteractive ? GRAD.surface : 'none',
+        border: `1px solid ${hover && isInteractive ? th.borderS : th.border}`,
         borderRadius: 12,
         padding: 16,
         transition: `all ${MOTION.base}`,
         cursor: onClick ? 'pointer' : 'default',
-        boxShadow: hover && (lift || onClick) ? th.shadow2 : th.shadow1,
-        transform: hover && (lift || onClick) ? 'translateY(-2px)' : 'none',
+        boxShadow: hover && isInteractive ? th.shadow2 : th.shadow1,
+        transform: hover && isInteractive ? 'translateY(-1px)' : 'none',
         ...style,
       }}>
       {children}
@@ -158,7 +175,7 @@ export const Input = ({ th, lang, label, error, hint, prefix, suffix, ...rest })
             outline: 'none',
             direction: lang === 'ar' ? 'rtl' : 'ltr',
             transition: `all ${MOTION.fast}`,
-            boxShadow: focused ? `0 0 0 3px ${error ? C.R + '25' : th.inputFocus}` : 'none',
+            boxShadow: focused ? `0 0 0 2px ${error ? C.R + '20' : C.O + '22'}` : 'none',
             ...rest.style,
           }} />
         {suffix && <div style={{ position: 'absolute', right: 12, color: th.sub, fontSize: 13, pointerEvents: 'none' }}>{suffix}</div>}
@@ -195,7 +212,7 @@ export const Textarea = ({ th, lang, label, ...rest }) => {
           resize: 'vertical',
           fontFamily: 'inherit',
           transition: `all ${MOTION.fast}`,
-          boxShadow: focused ? `0 0 0 3px ${th.inputFocus}` : 'none',
+          boxShadow: focused ? `0 0 0 2px ${C.O}22` : 'none',
           ...rest.style,
         }} />
     </label>
@@ -226,7 +243,7 @@ export const Select = ({ th, lang, label, options, ...rest }) => {
           outline: 'none',
           direction: lang === 'ar' ? 'rtl' : 'ltr',
           transition: `all ${MOTION.fast}`,
-          boxShadow: focused ? `0 0 0 3px ${th.inputFocus}` : 'none',
+          boxShadow: focused ? `0 0 0 2px ${C.O}22` : 'none',
           appearance: 'none',
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2364748B' d='M5 7L1 3h8z'/%3E%3C/svg%3E")`,
           backgroundRepeat: 'no-repeat',
@@ -343,7 +360,7 @@ export function SearchableSelect({ th, lang, label, value, onChange, options = [
           direction: lang === 'ar' ? 'rtl' : 'ltr',
           cursor: disabled ? 'not-allowed' : 'pointer',
           transition: `all ${MOTION.fast}`,
-          boxShadow: open ? `0 0 0 3px ${th.inputFocus}` : 'none',
+          boxShadow: open ? `0 0 0 2px ${C.O}22` : 'none',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           gap: 8,
           opacity: disabled ? 0.5 : 1,
@@ -447,7 +464,7 @@ export const Modal = ({ open, onClose, title, children, th, lang, width = 600 })
           background: th.surf,
           borderRadius: '16px 16px 0 0',
         }}>
-          <div style={{ fontSize: 15, fontWeight: 800, color: th.txt, letterSpacing: '-0.01em' }}>{title}</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: th.txt, letterSpacing: '-0.018em' }}>{title}</div>
           <button onClick={onClose} aria-label="Close" style={{
             background: 'none', border: 'none', color: th.sub,
             fontSize: 22, lineHeight: 1, padding: '4px 10px', borderRadius: 6,
@@ -516,14 +533,20 @@ export const Confirm = ({ open, onClose, onConfirm, title, message, th, lang, da
 );
 
 // ───── Empty state ─────
-export const Empty = ({ icon = '✨', title, hint, th, action }) => (
+export const Empty = ({ icon = '○', title, hint, th, action }) => (
   <div className="fade" style={{
     textAlign: 'center', padding: '72px 24px', color: th.sub,
-    border: `1px dashed ${th.border}`, borderRadius: 16,
+    border: `1px dashed ${th.border}`, borderRadius: 14,
     background: th.miniCard,
   }}>
-    <div style={{ fontSize: 48, marginBottom: 14, opacity: .55, filter: 'grayscale(.2)' }}>{icon}</div>
-    <div style={{ fontSize: 15, color: th.txt, fontWeight: 700, marginBottom: 6, letterSpacing: '-0.01em' }}>{title}</div>
+    <div style={{
+      width: 52, height: 52, margin: '0 auto 16px',
+      borderRadius: '50%', background: th.card,
+      border: `1px solid ${th.border}`,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontSize: 22, color: th.muted, opacity: .8,
+    }}>{icon}</div>
+    <div style={{ fontSize: 14.5, color: th.txt, fontWeight: 600, marginBottom: 6, letterSpacing: '-0.018em' }}>{title}</div>
     {hint && <div style={{ fontSize: 12, color: th.sub, maxWidth: 340, margin: '0 auto', lineHeight: 1.6 }}>{hint}</div>}
     {action && <div style={{ marginTop: 18 }}>{action}</div>}
   </div>
@@ -545,7 +568,7 @@ export const Skeleton = ({ w = '100%', h = 16, r = 6, style }) => (
   <div className="skeleton" style={{ width: w, height: h, borderRadius: r, ...style }} />
 );
 
-// ───── KPI card — premium feel ─────
+// ───── KPI card — refined: bold neutral number with subtle accent ─────
 export const KPI = ({ icon, label, value, sub, c = C.O, th, onClick, trend }) => {
   const [hover, setHover] = useState(false);
   return (
@@ -553,55 +576,46 @@ export const KPI = ({ icon, label, value, sub, c = C.O, th, onClick, trend }) =>
       onClick={onClick}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="card-sheen"
       style={{
         position: 'relative',
         background: th.surf,
-        border: `1px solid ${hover && onClick ? c + '40' : th.border}`,
-        borderRadius: 14,
+        border: `1px solid ${hover && onClick ? th.borderS : th.border}`,
+        borderRadius: 12,
         padding: 18,
         cursor: onClick ? 'pointer' : 'default',
         transition: `all ${MOTION.base}`,
         overflow: 'hidden',
         boxShadow: hover && onClick ? th.shadow2 : th.shadow1,
-        transform: hover && onClick ? 'translateY(-2px)' : 'none',
+        transform: hover && onClick ? 'translateY(-1px)' : 'none',
       }}>
-      {/* Top accent line */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-        background: `linear-gradient(90deg, transparent, ${c}, transparent)`,
-        opacity: hover && onClick ? 1 : .4,
-        transition: `opacity ${MOTION.base}`,
-      }} />
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
         <div style={{
-          width: 36, height: 36, borderRadius: 10,
-          background: `${c}1F`,
-          border: `1px solid ${c}30`,
+          width: 32, height: 32, borderRadius: 8,
+          background: `${c}14`,
+          border: `1px solid ${c}28`,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 18,
-          boxShadow: hover && onClick ? `0 4px 14px ${c}33` : 'none',
+          fontSize: 15, color: c,
           transition: `all ${MOTION.base}`,
         }}>{icon}</div>
-        {trend && (
+        {trend != null && trend !== 0 && (
           <span style={{
-            fontSize: 10, fontWeight: 700,
-            color: trend > 0 ? C.G : trend < 0 ? C.R : th.sub,
-            background: trend > 0 ? `${C.G}1A` : trend < 0 ? `${C.R}1A` : 'transparent',
-            padding: '3px 8px', borderRadius: 999,
-          }}>{trend > 0 ? '↗' : trend < 0 ? '↘' : '→'} {Math.abs(trend)}%</span>
+            fontSize: 10, fontWeight: 600, letterSpacing: '.2px',
+            color: trend > 0 ? C.G : C.R,
+            background: trend > 0 ? `${C.G}14` : `${C.R}14`,
+            border: `1px solid ${trend > 0 ? C.G : C.R}28`,
+            padding: '2px 8px', borderRadius: 999,
+          }}>{trend > 0 ? '↑' : '↓'} {Math.abs(trend)}%</span>
         )}
       </div>
       <div style={{
-        fontSize: 10, color: th.sub, letterSpacing: '1.2px',
-        textTransform: 'uppercase', fontWeight: 600, marginBottom: 6,
+        fontSize: 10, color: th.sub, letterSpacing: '1.4px',
+        textTransform: 'uppercase', fontWeight: 600, marginBottom: 8,
       }}>{label}</div>
       <div style={{
-        fontSize: 26, fontWeight: 800, color: c,
-        fontFamily: "'Syne', sans-serif", letterSpacing: '-0.02em',
-        lineHeight: 1.05,
+        fontSize: 26, fontWeight: 700, color: th.txt,
+        letterSpacing: '-0.028em', lineHeight: 1.05,
       }}>{value}</div>
-      {sub && <div style={{ fontSize: 10.5, color: th.muted, marginTop: 6 }}>{sub}</div>}
+      {sub && <div style={{ fontSize: 11, color: th.muted, marginTop: 6, fontWeight: 500 }}>{sub}</div>}
     </div>
   );
 };

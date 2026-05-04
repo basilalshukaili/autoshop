@@ -60,11 +60,12 @@ export default function InvoiceDetail({ th, lang, worker, settings }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
               <div style={{
                 width: '44px', height: '44px', borderRadius: '10px',
-                background: 'linear-gradient(135deg,#F97316,#C2410C)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', color: '#fff',
-              }}>🔧</div>
+                background: 'linear-gradient(135deg,#818CF8,#4F46E5)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '20px', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff',
+              }}>A</div>
               <div>
-                <div style={{ fontSize: '18px', fontWeight: 800, fontFamily: isAr ? "'Noto Kufi Arabic'" : "'Syne'" }}>
+                <div style={{ fontSize: '18px', fontWeight: 800, fontFamily: isAr ? "'Noto Kufi Arabic'" : "'Inter'", letterSpacing: '-0.02em' }}>
                   {isAr ? settings.shop_name_ar : settings.shop_name}
                 </div>
                 <div style={{ fontSize: '11px', color: th.sub }}>

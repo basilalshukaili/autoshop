@@ -68,14 +68,16 @@ export default function Login({ th, lang, theme, setLang, setTheme, onLogin }) {
       flexDirection: 'column', padding: 20, position: 'relative',
       direction: lang === 'ar' ? 'rtl' : 'ltr', overflow: 'hidden',
     }}>
-      {/* Atmospheric blobs */}
+      {/* Subtle atmospheric depth — single restrained accent */}
       <div className="blob" style={{
-        width: 360, height: 360, top: '-10%', left: '-5%',
-        background: 'radial-gradient(circle, rgba(249,115,22,.5), transparent 70%)',
+        width: 480, height: 480, top: '-15%', right: '-10%',
+        background: 'radial-gradient(circle, rgba(99,102,241,.18), transparent 70%)',
+        opacity: .45,
       }} />
       <div className="blob" style={{
-        width: 420, height: 420, bottom: '-15%', right: '-8%',
-        background: 'radial-gradient(circle, rgba(59,130,246,.35), transparent 70%)',
+        width: 380, height: 380, bottom: '-15%', left: '-8%',
+        background: 'radial-gradient(circle, rgba(99,102,241,.10), transparent 70%)',
+        opacity: .35,
         animationDelay: '6s',
       }} />
 
@@ -86,35 +88,38 @@ export default function Login({ th, lang, theme, setLang, setTheme, onLogin }) {
         display: 'flex', gap: 8, zIndex: 2,
       }}>
         <button onClick={() => setLang(x => x === 'en' ? 'ar' : 'en')} style={{
-          background: `${C.B}15`, border: `1px solid ${C.B}35`, color: C.B,
-          padding: '7px 14px', borderRadius: 10, cursor: 'pointer', fontSize: 12, fontWeight: 700,
+          background: th.card, border: `1px solid ${th.borderS}`, color: th.txt,
+          padding: '7px 14px', borderRadius: 8, cursor: 'pointer', fontSize: 12, fontWeight: 600,
           fontFamily: ff(lang), transition: `all ${MOTION.fast}`,
           backdropFilter: 'blur(10px)',
         }}>{lang === 'en' ? 'العربية' : 'English'}</button>
         <button onClick={() => setTheme(x => x === 'dark' ? 'light' : 'dark')} style={{
-          background: `${C.GL}15`, border: `1px solid ${C.GL}35`, color: C.GL,
-          padding: '7px 12px', borderRadius: 10, cursor: 'pointer', fontSize: 14,
+          background: th.card, border: `1px solid ${th.borderS}`, color: th.txt,
+          padding: '7px 12px', borderRadius: 8, cursor: 'pointer', fontSize: 14,
+          width: 36, height: 36,
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
           backdropFilter: 'blur(10px)', transition: `all ${MOTION.fast}`,
-        }}>{theme === 'dark' ? '☀️' : '🌙'}</button>
+        }}>{theme === 'dark' ? '☀' : '☾'}</button>
       </div>
 
-      {/* Logo + title */}
-      <div className="fade" style={{ textAlign: 'center', marginBottom: 36, position: 'relative', zIndex: 2 }}>
-        <div className="float" style={{
-          width: 72, height: 72, borderRadius: 18,
-          background: GRAD.brand,
+      {/* Logo + title — refined, no oversized icon */}
+      <div className="fade" style={{ textAlign: 'center', marginBottom: 38, position: 'relative', zIndex: 2 }}>
+        <div style={{
+          width: 56, height: 56, borderRadius: 14,
+          background: GRAD.brand, color: '#fff',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 36, margin: '0 auto 18px',
-          boxShadow: '0 0 40px rgba(249,115,22,.5), 0 14px 28px rgba(249,115,22,.35), inset 0 1px 0 rgba(255,255,255,.3)',
-        }}>🔧</div>
+          fontSize: 24, fontWeight: 800, letterSpacing: '-0.03em',
+          margin: '0 auto 20px',
+          boxShadow: '0 12px 32px rgba(99,102,241,.40), 0 4px 14px rgba(99,102,241,.25), inset 0 1px 0 rgba(255,255,255,.20)',
+        }}>A</div>
         <h1 style={{
-          fontSize: 32, fontWeight: 800, color: th.txt,
+          fontSize: 28, fontWeight: 700, color: th.txt,
           fontFamily: fd(lang), margin: 0,
-          letterSpacing: lang === 'ar' ? 0 : '-0.025em',
+          letterSpacing: lang === 'ar' ? 0 : '-0.028em',
         }}>{t('app_title', lang)}</h1>
         <div style={{
-          fontSize: 11, color: th.sub, fontFamily: ff(lang),
-          marginTop: 6, letterSpacing: '2.5px', textTransform: 'uppercase',
+          fontSize: 10.5, color: th.muted, fontFamily: ff(lang),
+          marginTop: 8, letterSpacing: '2.4px', textTransform: 'uppercase',
           fontWeight: 600,
         }}>
           {t('app_subtitle', lang)}
@@ -290,17 +295,14 @@ export default function Login({ th, lang, theme, setLang, setTheme, onLogin }) {
 
       {/* Powered by Basil */}
       <div style={{
-        position: 'absolute', bottom: 22,
+        position: 'absolute', bottom: 24,
         textAlign: 'center', width: '100%', zIndex: 2,
       }}>
         <div style={{
           display: 'inline-block',
-          fontSize: 11, fontWeight: 700, color: C.O,
+          fontSize: 10, fontWeight: 600, color: th.muted,
           fontFamily: ff(lang),
-          background: `${C.O}14`, border: `1px solid ${C.O}30`,
-          borderRadius: 999, padding: '6px 18px', letterSpacing: '.5px',
-          backdropFilter: 'blur(10px)',
-          boxShadow: `0 0 22px ${C.O}22, inset 0 1px 0 ${C.O}33`,
+          letterSpacing: '1.6px', textTransform: 'uppercase',
         }}>
           {t('powered_by_basil', lang)}
         </div>

@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Kufi+Arabic:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Noto+Kufi+Arabic:wght@400;500;600;700;800&display=swap');
 
 /* ───── reset ───── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-*::selection { background: rgba(249,115,22,.28); color: inherit; }
+*::selection { background: rgba(99,102,241,.22); color: inherit; }
 html, body, #root { height: 100%; }
 body {
   font-family: 'Inter', 'Noto Kufi Arabic', system-ui, -apple-system, sans-serif;
@@ -12,20 +12,21 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.011em;
 }
 button, input, textarea, select { font-family: inherit; font-feature-settings: inherit; letter-spacing: inherit; }
 button { cursor: pointer; }
 button:disabled { cursor: not-allowed; opacity: .5; }
 a { color: inherit; }
 
-/* Better default headings */
-h1, h2, h3, h4, h5, h6 { font-weight: 800; letter-spacing: -0.02em; }
+/* Better default headings — refined, more confident */
+h1, h2, h3, h4, h5, h6 { font-weight: 700; letter-spacing: -0.022em; }
+h1 { letter-spacing: -0.028em; }
 
-/* Focus ring — accessible & elegant */
+/* Focus ring — subtle, accessible, indigo */
 :focus { outline: none; }
 :focus-visible {
-  outline: 2px solid rgba(249,115,22,.65);
+  outline: 2px solid rgba(99,102,241,.55);
   outline-offset: 2px;
   border-radius: 8px;
   transition: outline-offset .15s;
@@ -34,16 +35,16 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
   outline: none; /* component handles */
 }
 
-/* Scrollbar */
+/* Scrollbar — neutral slate, not branded. Stays out of the way. */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(249,115,22,.22);
+  background: rgba(148,163,184,.18);
   border-radius: 999px;
   transition: background .2s;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(249,115,22,.55); }
-* { scrollbar-width: thin; scrollbar-color: rgba(249,115,22,.22) transparent; }
+::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,.35); }
+* { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,.18) transparent; }
 
 [data-rtl="true"]  { direction: rtl; }
 [data-rtl="false"] { direction: ltr; }
@@ -58,7 +59,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 @keyframes toastIn    { from { opacity:0; transform: translateY(20px) scale(.96) } to { opacity:1; transform: translateY(0) scale(1) } }
 @keyframes spin       { to { transform: rotate(360deg) } }
 @keyframes shimmer    { from { background-position: -1000px 0 } to { background-position: 1000px 0 } }
-@keyframes glowPulse  { 0%,100% { box-shadow: 0 0 0 rgba(249,115,22,.3) } 50% { box-shadow: 0 0 28px rgba(249,115,22,.55) } }
+@keyframes glowPulse  { 0%,100% { box-shadow: 0 0 0 rgba(99,102,241,.25) } 50% { box-shadow: 0 0 24px rgba(99,102,241,.45) } }
 @keyframes softPulse  { 0%,100% { opacity:1 } 50% { opacity:.55 } }
 @keyframes flowDash   { to { stroke-dashoffset: -16 } }
 @keyframes float      { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-2px) } }

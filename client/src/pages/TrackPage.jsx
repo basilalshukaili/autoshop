@@ -53,23 +53,24 @@ export default function TrackPage({ th, lang, setLang, theme, setTheme, settings
         display: 'flex', gap: '8px',
       }}>
         <button onClick={() => setLang(x => x === 'en' ? 'ar' : 'en')} style={{
-          background: `${C.B}15`, border: `1px solid ${C.B}30`, color: C.B,
-          padding: '6px 12px', borderRadius: '7px', cursor: 'pointer', fontSize: '12px',
+          background: th.card, border: `1px solid ${th.border}`, color: th.txt,
+          padding: '7px 12px', borderRadius: 8, cursor: 'pointer', fontSize: '12px', fontWeight: 600,
         }}>{lang === 'en' ? 'العربية' : 'English'}</button>
         <button onClick={() => setTheme(x => x === 'dark' ? 'light' : 'dark')} style={{
-          background: `${C.GL}15`, border: `1px solid ${C.GL}30`, color: C.GL,
-          padding: '6px 11px', borderRadius: '7px', cursor: 'pointer', fontSize: '14px',
-        }}>{theme === 'dark' ? '☀️' : '🌙'}</button>
+          background: th.card, border: `1px solid ${th.border}`, color: th.sub,
+          padding: '7px 11px', borderRadius: 8, cursor: 'pointer', fontSize: '14px',
+        }}>{theme === 'dark' ? '☀' : '☾'}</button>
       </div>
 
       <div style={{ maxWidth: '500px', margin: '40px auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <div style={{
-            width: '60px', height: '60px', borderRadius: '14px',
-            background: 'linear-gradient(135deg,#F97316,#C2410C)',
+            width: '52px', height: '52px', borderRadius: '12px',
+            background: 'linear-gradient(135deg,#818CF8,#4F46E5)', color: '#fff',
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '30px', boxShadow: '0 0 30px rgba(249,115,22,.4)', marginBottom: '12px',
-          }}>🔧</div>
+            fontSize: '22px', fontWeight: 800, letterSpacing: '-0.03em',
+            boxShadow: '0 8px 24px rgba(99,102,241,.30)', marginBottom: '14px',
+          }}>A</div>
           <h1 style={{ fontSize: '20px', fontWeight: 800, fontFamily: fd(lang), color: th.txt, margin: 0 }}>
             {lang === 'ar' ? settings.shop_name_ar || 'أوتوشوب برو' : settings.shop_name || 'AutoShop Pro'}
           </h1>
