@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Kufi+Arabic:wght@400;500;600;700;800&display=swap');
+
+/* ───── reset ───── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+*::selection { background: rgba(249,115,22,.28); color: inherit; }
+html, body, #root { height: 100%; }
+body {
+  font-family: 'Inter', 'Noto Kufi Arabic', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv02","cv03","cv04","cv11","ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  letter-spacing: -0.005em;
+}
+button, input, textarea, select { font-family: inherit; font-feature-settings: inherit; letter-spacing: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+a { color: inherit; }
+
+/* Better default headings */
+h1, h2, h3, h4, h5, h6 { font-weight: 800; letter-spacing: -0.02em; }
+
+/* Focus ring — accessible & elegant */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid rgba(249,115,22,.65);
+  outline-offset: 2px;
+  border-radius: 8px;
+  transition: outline-offset .15s;
+}
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: none; /* component handles */
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(249,115,22,.22);
+  border-radius: 999px;
+  transition: background .2s;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(249,115,22,.55); }
+* { scrollbar-width: thin; scrollbar-color: rgba(249,115,22,.22) transparent; }
+
+[data-rtl="true"]  { direction: rtl; }
+[data-rtl="false"] { direction: ltr; }
+
+/* ───── animations ───── */
+@keyframes fadeUp     { from { opacity:0; transform: translateY(12px) } to { opacity:1; transform: translateY(0) } }
+@keyframes fadeIn     { from { opacity:0 } to { opacity:1 } }
+@keyframes slideUp    { from { opacity:0; transform: translateY(20px) scale(.97) } to { opacity:1; transform: translateY(0) scale(1) } }
+@keyframes slideDown  { from { opacity:0; transform: translateY(-12px) } to { opacity:1; transform: translateY(0) } }
+@keyframes shake      { 0%,100% { transform: translateX(0) } 25%,75% { transform: translateX(-6px) } 50% { transform: translateX(6px) } }
+@keyframes blink      { 0%,100% { opacity:1 } 50% { opacity:.35 } }
+@keyframes toastIn    { from { opacity:0; transform: translateY(20px) scale(.96) } to { opacity:1; transform: translateY(0) scale(1) } }
+@keyframes spin       { to { transform: rotate(360deg) } }
+@keyframes shimmer    { from { background-position: -1000px 0 } to { background-position: 1000px 0 } }
+@keyframes glowPulse  { 0%,100% { box-shadow: 0 0 0 rgba(249,115,22,.3) } 50% { box-shadow: 0 0 28px rgba(249,115,22,.55) } }
+@keyframes softPulse  { 0%,100% { opacity:1 } 50% { opacity:.55 } }
+@keyframes flowDash   { to { stroke-dashoffset: -16 } }
+@keyframes float      { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-2px) } }
+@keyframes blobShift  { 0%,100% { transform: translate(0,0) scale(1) } 33% { transform: translate(40px,-30px) scale(1.06) } 66% { transform: translate(-30px,30px) scale(.94) } }
+
+.fade   { animation: fadeUp .4s cubic-bezier(.4,0,.2,1) both; }
+.slide  { animation: slideUp .35s cubic-bezier(.34,1.56,.64,1) both; }
+.toast  { animation: toastIn .35s cubic-bezier(.34,1.56,.64,1) both; }
+.shake  { animation: shake .45s ease both; }
+.spin   { animation: spin .9s linear infinite; }
+.softPulse { animation: softPulse 2s ease-in-out infinite; }
+.glowPulse { animation: glowPulse 2.4s ease-in-out infinite; }
+.float  { animation: float 3s ease-in-out infinite; }
+
+/* Stagger children on enter */
+.stagger > *           { animation: fadeUp .4s cubic-bezier(.4,0,.2,1) both; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 35ms; }
+.stagger > *:nth-child(3) { animation-delay: 70ms; }
+.stagger > *:nth-child(4) { animation-delay: 105ms; }
+.stagger > *:nth-child(5) { animation-delay: 140ms; }
+.stagger > *:nth-child(6) { animation-delay: 175ms; }
+.stagger > *:nth-child(7) { animation-delay: 210ms; }
+.stagger > *:nth-child(8) { animation-delay: 245ms; }
+.stagger > *:nth-child(9) { animation-delay: 280ms; }
+.stagger > *:nth-child(10){ animation-delay: 315ms; }
+
+/* Skeleton shimmer (inherits surf colors via component) */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.10) 50%, rgba(255,255,255,.04) 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s linear infinite;
+  border-radius: 8px;
+}
+[data-theme="light"] .skeleton {
+  background: linear-gradient(90deg, rgba(15,23,42,.04) 0%, rgba(15,23,42,.10) 50%, rgba(15,23,42,.04) 100%);
+  background-size: 1000px 100%;
+}
+
+/* Lift / press utilities */
+.lift  { transition: transform .22s cubic-bezier(.4,0,.2,1), box-shadow .22s, border-color .22s, background .22s; }
+.lift:hover { transform: translateY(-2px); }
+.press { transition: transform .1s cubic-bezier(.4,0,.2,1); }
+.press:active { transform: scale(.97); }
+
+/* Atmospheric blob (used on Login bg) */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .6;
+  pointer-events: none;
+  animation: blobShift 18s ease-in-out infinite;
+}
+
+/* Glass surface */
+.glass {
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+}
+
+/* Card hover sheen overlay (apply to .card-sheen) */
+.card-sheen { position: relative; overflow: hidden; }
+.card-sheen::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 40%);
+  opacity: 0;
+  transition: opacity .25s;
+  pointer-events: none;
+}
+.card-sheen:hover::before { opacity: 1; }
+
+/* ───── responsive utilities ───── */
+.show-mobile { display: none; }
+.hide-mobile { display: inline-flex; }
+
+@media (max-width: 1023px) {
+  .show-mobile { display: inline-flex; }
+  .hide-mobile { display: none !important; }
+  .show-tablet { display: inline-flex; }
+}
+@media (max-width: 640px) {
+  .hide-tablet { display: none !important; }
+}
+
+/* Mobile drawer scrim */
+.drawer-scrim {
+  position: fixed; inset: 0;
+  background: rgba(3,6,15,.65);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  animation: fadeIn .2s ease both;
+}
+
+/* Page main content responsive padding */
+.page-main { padding: 28px 28px 40px; }
+@media (max-width: 1023px) { .page-main { padding: 22px 20px 32px; } }
+@media (max-width: 640px)  { .page-main { padding: 16px 14px 28px; } }
+
+/* Top bar responsive padding */
+.topbar { padding: 12px 24px; }
+@media (max-width: 1023px) { .topbar { padding: 10px 16px; } }
+@media (max-width: 640px)  { .topbar { padding: 9px 12px; gap: 6px !important; } }
+
+/* Hide elements in tight spaces */
+@media (max-width: 640px) {
+  .desktop-only { display: none !important; }
+}
+
+/* Sidebar drawer (mobile / tablet) */
+.sidebar { width: 240px; min-width: 240px; }
+@media (max-width: 1023px) {
+  .sidebar {
+    position: fixed !important;
+    top: 0; bottom: 0;
+    inset-inline-start: 0;
+    z-index: 300;
+    transform: translateX(-100%);
+    transition: transform .28s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 0 50px rgba(0,0,0,.4);
+  }
+  [data-rtl="true"] .sidebar { transform: translateX(100%); }
+  .sidebar.open { transform: translateX(0) !important; }
+}
+
+/* Modal responsive behavior is handled via inline styles in Modal component */
+
+/* Kanban — keep columns horizontal on mobile (scroll) instead of stacking */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+@media (max-width: 900px) {
+  .kanban-board {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 8px;
+    margin: 0 -14px;
+    padding-inline: 14px;
+    scroll-snap-type: x mandatory;
+  }
+  .kanban-board > * {
+    flex: 0 0 78vw;
+    max-width: 320px;
+    scroll-snap-align: start;
+  }
+}
+
+/* Two-column form grid → single col on mobile */
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 640px) {
+  .form-grid-2 { grid-template-columns: 1fr; }
+}
+
+/* Print styles for invoices and job cards */
+@media print {
+  body { background: white !important; color: black !important; }
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  .invoice-print { background: white !important; color: black !important; padding: 24px !important; }
+  .invoice-print * { color: black !important; }
+}
+.print-only { display: none; }
+
+/* Reduced motion respects user preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

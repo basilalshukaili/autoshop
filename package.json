@@ -1,0 +1,16 @@
+{
+  "name": "autoshop-pro",
+  "version": "1.0.0",
+  "description": "AutoShop Pro - Garage Management Platform (Oman)",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "build:client": "cd client && npm run build",
+    "start": "cd server && node --no-warnings index.js",
+    "dev:server": "cd server && node --no-warnings --watch index.js",
+    "dev:client": "cd client && npm run dev",
+    "deploy": "npm run build:client && npm run start"
+  },
+  "author": "Basil Al Shukaili <basilalshukaili@gmail.com>",
+  "license": "Proprietary"
+}

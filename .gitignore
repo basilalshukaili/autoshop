@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build output
+client/dist/
+
+# Database & local data
+data/
+backups/
+
+# Downloaded binaries (auto-downloaded on first run)
+server/bin/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment / secrets
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PM2
+.pm2/
+
+# Claude Code session files
+.claude/
+
+# WhatsApp Web cache
+server/.wwebjs_cache/
+server/.wwebjs_auth/
+
+# Temp
+*.tmp
+*.zip
