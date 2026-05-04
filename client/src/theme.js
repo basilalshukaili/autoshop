@@ -123,7 +123,6 @@ export const TH = {
 
 // ───────── TYPOGRAPHY ─────────
 // Inter is the gold standard for professional UIs (used by Linear, Vercel, Stripe).
-// We removed Syne (a display font that felt too playful) — display weight uses Inter Tight feel.
 export const ff = (lang) => lang === 'ar' ? "'Noto Kufi Arabic', sans-serif" : "'Inter', system-ui, -apple-system, sans-serif";
 export const fd = (lang) => lang === 'ar' ? "'Noto Kufi Arabic', sans-serif" : "'Inter', system-ui, -apple-system, sans-serif";
 export const fm = "'JetBrains Mono', 'DM Mono', ui-monospace, monospace";

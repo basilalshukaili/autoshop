@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { post, get } from './api.js';
 import { C, ff, fd, GRAD, MOTION } from './theme.js';
 import { t } from './i18n.js';
-import { Dot } from './ui.jsx';
 
 export default function Login({ th, lang, theme, setLang, setTheme, onLogin }) {
   const [workers, setWorkers] = useState([]);

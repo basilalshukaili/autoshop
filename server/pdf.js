@@ -45,18 +45,18 @@ export async function generateInvoicePDF(inv, settings) {
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family: ${isAr ? "'Noto Kufi Arabic', Tahoma, Arial" : "Arial, sans-serif"}; font-size:12px; color:#1a1a1a; padding:32px; background:#fff; }
   .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; }
-  .logo { width:44px; height:44px; background:linear-gradient(135deg,#F97316,#C2410C); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:22px; }
-  .shop-name { font-size:18px; font-weight:800; color:#1a1a1a; }
+  .logo { width:44px; height:44px; background:linear-gradient(135deg,#818CF8,#4F46E5); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#fff; letter-spacing:-0.03em; }
+  .shop-name { font-size:18px; font-weight:800; color:#1a1a1a; letter-spacing:-0.02em; }
   .inv-label { font-size:10px; letter-spacing:2px; color:#888; text-transform:uppercase; }
-  .inv-code { font-size:26px; font-weight:800; color:#F97316; font-family:monospace; }
-  .bill-box { background:#f8f8f8; border-radius:8px; padding:14px; margin-bottom:22px; font-size:12px; }
+  .inv-code { font-size:26px; font-weight:800; color:#4F46E5; font-family:monospace; letter-spacing:-0.02em; }
+  .bill-box { background:#F5F6FA; border-radius:8px; padding:14px; margin-bottom:22px; font-size:12px; }
   .bill-label { font-size:10px; letter-spacing:2px; color:#888; text-transform:uppercase; margin-bottom:6px; }
   table { width:100%; border-collapse:collapse; margin-bottom:18px; }
-  th { border-bottom:2px solid #F97316; padding:8px 6px; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#888; text-align:${isAr ? 'right' : 'left'}; }
+  th { border-bottom:2px solid #4F46E5; padding:8px 6px; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#888; text-align:${isAr ? 'right' : 'left'}; }
   td { border-bottom:1px solid #eee; padding:8px 6px; vertical-align:top; }
   .totals { float:${isAr ? 'left' : 'right'}; width:280px; }
   .total-row { display:flex; justify-content:space-between; padding:4px 0; font-size:12px; color:#555; }
-  .grand { border-top:2px solid #F97316; margin-top:6px; padding-top:6px; font-size:16px; font-weight:800; color:#F97316; }
+  .grand { border-top:2px solid #4F46E5; margin-top:6px; padding-top:6px; font-size:16px; font-weight:800; color:#4F46E5; }
   .footer { margin-top:40px; padding-top:16px; border-top:1px solid #eee; text-align:center; font-size:11px; color:#888; }
   .paid-badge { display:inline-block; background:#22C55E20; color:#16A34A; border:1px solid #16A34A40; padding:3px 10px; border-radius:4px; font-size:11px; font-weight:700; margin-top:8px; }
 </style>
@@ -64,7 +64,7 @@ export async function generateInvoicePDF(inv, settings) {
 <body>
 <div class="header">
   <div style="display:flex;gap:14px;align-items:center">
-    <div class="logo">🔧</div>
+    <div class="logo">A</div>
     <div>
       <div class="shop-name">${shopName}</div>
       <div style="font-size:11px;color:#888;margin-top:2px">${shopAddr}</div>
@@ -111,7 +111,7 @@ export async function generateInvoicePDF(inv, settings) {
 </div>
 
 <div class="footer">
-  <div style="font-weight:700;color:#F97316">${isAr ? 'شكراً لتعاملكم معنا' : 'Thank you for your business'}</div>
+  <div style="font-weight:700;color:#4F46E5">${isAr ? 'شكراً لتعاملكم معنا' : 'Thank you for your business'}</div>
 </div>
 </body>
 </html>`;

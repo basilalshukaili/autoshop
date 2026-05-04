@@ -299,21 +299,28 @@ import bcrypt from 'bcryptjs';
 
 const hasWorkers = db.prepare('SELECT COUNT(*) as c FROM workers').get().c;
 if (!hasWorkers) {
+  // SECURITY: only the bcrypt-hashed pin is stored. The legacy `pin` column
+  // is left NULL so PINs cannot be recovered from the database.
   const insertWorker = db.prepare(`
-    INSERT INTO workers (name, name_ar, role, role_ar, color, avatar, pin_hash, pin)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO workers (name, name_ar, role, role_ar, color, avatar, pin_hash)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `);
   const seed = [
-    ['Basil', 'باسل', 'Manager', 'مدير', '#F97316', '👑', '0000'],
+    ['Basil', 'باسل', 'Manager', 'مدير', '#6366F1', '👑', '0000'],
     ['Ahmed', 'أحمد', 'Manager', 'مدير', '#A78BFA', '🧑‍💼', '1234'],
     ['Khalid', 'خالد', 'Technician', 'فني', '#34D399', '👷', '5678'],
     ['Sara', 'سارة', 'Technician', 'فني', '#F472B6', '👩‍💼', '9012'],
     ['Faisal', 'فيصل', 'Technician', 'فني', '#38BDF8', '🧑‍🔧', '3456'],
   ];
   for (const [n, na, r, ra, c, av, pin] of seed) {
-    insertWorker.run(n, na, r, ra, c, av, bcrypt.hashSync(pin, 8), pin);
+    insertWorker.run(n, na, r, ra, c, av, bcrypt.hashSync(pin, 8));
   }
 }
+
+// ───── ONE-TIME SECURITY MIGRATION ─────
+// Earlier versions of the app stored worker PINs in plaintext in `workers.pin`.
+// Wipe any leftover plaintext so a database leak doesn't expose login credentials.
+db.exec(`UPDATE workers SET pin = NULL WHERE pin IS NOT NULL`);
 
 const hasSettings = db.prepare('SELECT COUNT(*) as c FROM settings').get().c;
 if (!hasSettings) {

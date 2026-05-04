@@ -49,7 +49,14 @@ const sessions = new Map();
 const tokenGen = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 24);
 
 // ───── HELPERS ─────
+// Whitelist of tables that have a `code` column. nextCode is called with
+// hardcoded values today, but the whitelist hardens against future misuse.
+const CODE_TABLES = new Set([
+  'customers', 'vehicles', 'work_orders', 'invoices', 'parts',
+  'suppliers', 'expenses', 'waitlist', 'part_returns',
+]);
 function nextCode(table, prefix) {
+  if (!CODE_TABLES.has(table)) throw new Error(`nextCode: invalid table ${table}`);
   const r = db.prepare(`SELECT code FROM ${table} ORDER BY id DESC LIMIT 1`).get();
   if (!r) return `${prefix}-0001`;
   const n = parseInt(r.code.split('-')[1] || '0', 10) + 1;
@@ -76,8 +83,11 @@ function logAudit(workerId, action, entity, entityId, details = '') {
 }
 
 // ───── AUTH ─────
+// Public endpoint used by the login screen to render the avatar grid.
+// SECURITY: never include `pin` or `pin_hash` here — anyone on the LAN
+// can hit this endpoint without auth.
 app.get('/api/workers', (req, res) => {
-  const workers = db.prepare(`SELECT id, name, name_ar, role, role_ar, color, avatar, theme, lang, pin FROM workers WHERE active = 1`).all();
+  const workers = db.prepare(`SELECT id, name, name_ar, role, role_ar, color, avatar, theme, lang FROM workers WHERE active = 1`).all();
   res.json(workers);
 });
 
@@ -114,7 +124,8 @@ app.post('/api/me/pin', authMiddleware, (req, res) => {
   const w = db.prepare(`SELECT pin_hash FROM workers WHERE id = ?`).get(req.worker.id);
   if (!bcrypt.compareSync(String(current), w.pin_hash)) return res.status(401).json({ error: 'wrong pin' });
   if (!/^\d{4}$/.test(String(next))) return res.status(400).json({ error: '4 digits required' });
-  db.prepare(`UPDATE workers SET pin_hash = ?, pin = ? WHERE id = ?`).run(bcrypt.hashSync(String(next), 8), String(next), req.worker.id);
+  // Only store the bcrypt hash. The plaintext `pin` column is set to NULL.
+  db.prepare(`UPDATE workers SET pin_hash = ?, pin = NULL WHERE id = ?`).run(bcrypt.hashSync(String(next), 8), req.worker.id);
   logAudit(req.worker.id, 'change_pin', 'worker', req.worker.id, '');
   res.json({ ok: true });
 });
@@ -140,8 +151,9 @@ app.post('/api/workers', authMiddleware, (req, res) => {
   if (req.worker.role !== 'Manager') return res.status(403).json({ error: 'owner only' });
   const { name, name_ar, role, role_ar, color, avatar, pin } = req.body;
   if (!/^\d{4}$/.test(String(pin))) return res.status(400).json({ error: 'pin must be 4 digits' });
-  const r = db.prepare(`INSERT INTO workers (name, name_ar, role, role_ar, color, avatar, pin_hash, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
-    .run(name, name_ar, role, role_ar, color, avatar, bcrypt.hashSync(String(pin), 8), String(pin));
+  // Store only bcrypt hash. The plaintext `pin` column is intentionally left unset.
+  const r = db.prepare(`INSERT INTO workers (name, name_ar, role, role_ar, color, avatar, pin_hash) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+    .run(name, name_ar, role, role_ar, color, avatar, bcrypt.hashSync(String(pin), 8));
   logAudit(req.worker.id, 'create', 'worker', r.lastInsertRowid);
   res.json({ id: r.lastInsertRowid });
 });
