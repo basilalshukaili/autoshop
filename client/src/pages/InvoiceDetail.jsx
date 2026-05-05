@@ -60,7 +60,7 @@ export default function InvoiceDetail({ th, lang, worker, settings }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
               <div style={{
                 width: '44px', height: '44px', borderRadius: '10px',
-                background: 'linear-gradient(135deg,#818CF8,#4F46E5)',
+                background: 'linear-gradient(135deg,#64748B,#334155)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '20px', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff',
               }}>A</div>

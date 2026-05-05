@@ -45,7 +45,7 @@ export async function generateInvoicePDF(inv, settings) {
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family: ${isAr ? "'Noto Kufi Arabic', Tahoma, Arial" : "Arial, sans-serif"}; font-size:12px; color:#1a1a1a; padding:32px; background:#fff; }
   .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; }
-  .logo { width:44px; height:44px; background:linear-gradient(135deg,#818CF8,#4F46E5); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#fff; letter-spacing:-0.03em; }
+  .logo { width:44px; height:44px; background:linear-gradient(135deg,#64748B,#334155); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#fff; letter-spacing:-0.03em; }
   .shop-name { font-size:18px; font-weight:800; color:#1a1a1a; letter-spacing:-0.02em; }
   .inv-label { font-size:10px; letter-spacing:2px; color:#888; text-transform:uppercase; }
   .inv-code { font-size:26px; font-weight:800; color:#4F46E5; font-family:monospace; letter-spacing:-0.02em; }

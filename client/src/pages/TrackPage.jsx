@@ -66,10 +66,10 @@ export default function TrackPage({ th, lang, setLang, theme, setTheme, settings
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <div style={{
             width: '52px', height: '52px', borderRadius: '12px',
-            background: 'linear-gradient(135deg,#818CF8,#4F46E5)', color: '#fff',
+            background: 'linear-gradient(135deg,#64748B,#334155)', color: '#fff',
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             fontSize: '22px', fontWeight: 800, letterSpacing: '-0.03em',
-            boxShadow: '0 8px 24px rgba(99,102,241,.30)', marginBottom: '14px',
+            boxShadow: '0 8px 24px rgba(71,85,105,.30)', marginBottom: '14px',
           }}>A</div>
           <h1 style={{ fontSize: '20px', fontWeight: 800, fontFamily: fd(lang), color: th.txt, margin: 0 }}>
             {lang === 'ar' ? settings.shop_name_ar || 'أوتوشوب برو' : settings.shop_name || 'AutoShop Pro'}
