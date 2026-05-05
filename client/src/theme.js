@@ -5,7 +5,7 @@
 export const C = {
   O:  '#6366F1',  // INDIGO — primary brand (was orange)
   B:  '#0EA5E9',  // sky — info
-  P:  '#7C3AED',  // violet-600 — deeper, more professional
+  P:  '#475569',  // slate-600 — neutral, executive accent (was violet)
   G:  '#10B981',  // emerald — success
   PK: '#EC4899',  // pink
   GL: '#D97706',  // amber — warning (deeper, less playful)
