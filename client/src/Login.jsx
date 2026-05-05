@@ -109,7 +109,7 @@ export default function Login({ th, lang, theme, setLang, setTheme, onLogin }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: 24, fontWeight: 800, letterSpacing: '-0.03em',
           margin: '0 auto 20px',
-          boxShadow: '0 12px 32px rgba(99,102,241,.40), 0 4px 14px rgba(99,102,241,.25), inset 0 1px 0 rgba(255,255,255,.20)',
+          boxShadow: '0 12px 32px rgba(71,85,105,.40), 0 4px 14px rgba(71,85,105,.25), inset 0 1px 0 rgba(255,255,255,.20)',
         }}>A</div>
         <h1 style={{
           fontSize: 28, fontWeight: 700, color: th.txt,

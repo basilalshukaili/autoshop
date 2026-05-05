@@ -380,7 +380,7 @@ function Sidebar({ th, lang, worker, settings, isMobile, navOpen, onNavigate }) 
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             color: '#fff',
             fontSize: 16, fontWeight: 800, letterSpacing: '-0.02em',
-            boxShadow: '0 4px 14px rgba(99,102,241,.35), inset 0 1px 0 rgba(255,255,255,.20)',
+            boxShadow: '0 4px 14px rgba(71,85,105,.35), inset 0 1px 0 rgba(255,255,255,.20)',
             fontFamily: "'Inter', sans-serif",
           }}>A</div>
           <div style={{ overflow: 'hidden' }}>
@@ -476,7 +476,7 @@ function Main({ th, lang, setLang, theme, setTheme, worker, settings, onLogout, 
             background: GRAD.brand, color: '#fff',
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 14, fontWeight: 800, letterSpacing: '-0.02em',
-            boxShadow: '0 3px 10px rgba(99,102,241,.35)',
+            boxShadow: '0 3px 10px rgba(71,85,105,.35)',
           }}>A</div>
         )}
 

@@ -15,7 +15,7 @@ export const C = {
 
 // Brand-direction gradients & atmospheric layers (now indigo-based, refined)
 export const GRAD = {
-  brand:     'linear-gradient(135deg, #818CF8 0%, #4F46E5 100%)',
+  brand:     'linear-gradient(135deg, #475569 0%, #334155 100%)',
   brandSoft: 'linear-gradient(135deg, rgba(99,102,241,.12) 0%, rgba(79,70,229,.03) 100%)',
   surface:   'linear-gradient(180deg, rgba(255,255,255,.025) 0%, rgba(255,255,255,0) 60%)',
   glow:      'radial-gradient(circle at top right, rgba(99,102,241,.10), transparent 60%)',
